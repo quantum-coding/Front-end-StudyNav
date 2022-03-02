@@ -1,7 +1,19 @@
 <template>
   <a-layout style="min-height: 100vh">
     <a-layout-header :style="{ background: '#fff', padding: 0 }" class="header">
-      <div class="logo" />
+      <div class="logo">
+        <img
+          src="../../assets/网站logo.png"
+          alt=""
+        >
+        <h1 id="logoName">前端导航</h1>
+      </div>
+        <a-avatar :size="{ xs: 24, sm: 32, md: 40, lg: 42, xl: 45, xxl: 70 }" 
+        class="userAvatar" @click="goToLogin">
+          <template #icon>
+            <UserOutlined />
+          </template>
+        </a-avatar>
     </a-layout-header>
     <a-layout>
       <a-layout-sider
@@ -81,8 +93,44 @@ export default defineComponent({
 
 .logo {
   height: 32px;
+  width: 168px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
+}
+
+.logo {
+  position: relative;
+  height: 32px;
+  line-height: 32px;
+  margin: 16px;
+  padding: 0;
+}
+
+.logo img {
+  float: left;
+}
+
+.logo h1 {
+  float: left;
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 10px;
+  color: #000;
+}
+
+.header {
+  width: 100%;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .userAvatar {
+    margin-right: 60px;
+  }
+
+  .userAvatar:hover {
+    cursor: pointer;
+  }
 }
 
 .ant-layout-sider {
