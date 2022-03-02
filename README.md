@@ -1,2 +1,24 @@
-# Front-end-StudyNav
-前端导航是一个资源分享网站，上面集合了前端学习所需要的学习资源，用户可以在其中搜索到自己想要学习的一些资源，同时也可以向平台推荐比较新的前端资源，同时大家还可以在网站上交流一些前端学习的心得和感受
+# studynav
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
