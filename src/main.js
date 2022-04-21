@@ -2,11 +2,22 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import Index from './components/index.vue'
+import Recommend from './components/recommend.vue'
 import Login from './components/login.vue'
 import Register from './components/register.vue'
 import User from './components/userCenter/user.vue'
-import { Layout, Button, Menu, Breadcrumb, Avatar, Tooltip, Form, Input } from 'ant-design-vue'
+import { Layout, Button, Menu, Breadcrumb, Avatar, Tooltip, Form, Input,
+         PageHeader } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
+
+import axios from 'axios'
+
+axios.defaults.baseURL = 'http://127.0.0.1:3000'
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+const app = createApp(App)
+app.config.globalProperties.$axios = axios
 
 const routes = [
   { path: '/', redirect: '/index' },
@@ -22,6 +33,9 @@ const routes = [
   {
     path:'/user', component: User,
   },
+  {
+    path:'/recommend', component: Recommend,
+  },
 
 ]
 
@@ -32,7 +46,7 @@ const router = new createRouter({
 
 
 
-createApp(App).
+app.
   use(router).
   use(Layout).
   use(Menu).
@@ -42,4 +56,5 @@ createApp(App).
   use(Tooltip).
   use(Form).
   use(Input).
+  use(PageHeader).
   mount('#app')

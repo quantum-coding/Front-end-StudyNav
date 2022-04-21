@@ -8,65 +8,29 @@
         />
         <h1 id="logoName">前端导航</h1>
       </div>
-      <a-menu theme="dark" :selectedKeys="selectedKeys" mode="inline">
-        <a-menu-item key="1">
+      <a-menu theme="dark" 
+        :selectedKeys="selectedKeys" 
+        mode="inline" 
+        v-for="item in menuList" 
+        :key="item.menu_route"
+        @click="selectItem">
+        <a-sub-menu v-if="item.children && item.children.length !== 0" :key="item.menu_route">
+          <template #title>{{ item.name }}</template>
+            <a-menu-item  v-for="subItem in item.children" :key="subItem.menu_route">
+              <span>{{ subItem.name }}</span>
+            </a-menu-item>
+        </a-sub-menu>
+        
+        <a-menu-item :key="item.menu_route" v-else>
           <pie-chart-outlined />
-          <span>今日推荐</span>
+          <span>{{ item.name }}</span>
         </a-menu-item>
-        <a-menu-item key="2">
-          <desktop-outlined />
-          <span>开发基础</span>
-        </a-menu-item>
-        <a-sub-menu key="sub1">
-          <template #title>
-            <span>
-              <user-outlined />
-              <span>初学阶段</span>
-            </span>
-          </template>
-          <a-menu-item key="3">Tom</a-menu-item>
-          <a-menu-item key="4">Bill</a-menu-item>
-          <a-menu-item key="5">Alex</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <template #title>
-            <span>
-              <team-outlined />
-              <span>前端进阶</span>
-            </span>
-          </template>
-          <a-menu-item key="6">Team 1</a-menu-item>
-          <a-menu-item key="7">Team 2</a-menu-item>
-        </a-sub-menu>
-        <a-menu-item key="8">
-          <file-outlined />
-          <span>新鲜面经</span>
-        </a-menu-item>
-        <a-menu-item key="9">
-          <file-outlined />
-          <span>求助专区</span>
-        </a-menu-item>
-        <a-menu-item key="10">
-          <file-outlined />
-          <span>反馈角</span>
-        </a-menu-item>
-        <a-menu-item key="10">
-          <file-outlined />
-          <span>开发工具</span>
-        </a-menu-item>
-        <a-menu-item key="10">
-          <file-outlined />
-          <span>求学经验</span>
-        </a-menu-item>
-        <a-menu-item key="10">
-          <file-outlined />
-          <span>关于网站</span>
-        </a-menu-item>
+        
       </a-menu>
     </a-layout-sider>
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0;" class="header">
-      <a-tooltip title="登录享受更多惊喜" :color="color" arrowPointAtCenter=true>
+      <a-tooltip title="登录享受更多惊喜" :color="color" :arrowPointAtCenter="true">
         <a-avatar :size="{ xs: 24, sm: 32, md: 40, lg: 42, xl: 45, xxl: 70 }" 
         class="userAvatar" @click="goToLogin">
           <template #icon>
@@ -76,14 +40,18 @@
       </a-tooltip>
       </a-layout-header>
       <a-layout-content style="margin: 0 16px">
-        <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>User</a-breadcrumb-item>
-          <a-breadcrumb-item>Bill</a-breadcrumb-item>
-        </a-breadcrumb>
+
+        <a-page-header
+          class="page_header"
+          style="border: 1px solid rgb(235, 237, 240)"
+          title="今日热榜"
+          sub-title="看看今天有什么火爆的前端资源吧！"
+        />
+
         <div
           :style="{ padding: '24px', background: '#fff', minHeight: '360px' }"
         >
-          Bill is a cat.
+          
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
@@ -96,28 +64,28 @@
 <script>
 import {
   PieChartOutlined,
-  DesktopOutlined,
+  // DesktopOutlined,
   UserOutlined,
-  TeamOutlined,
-  FileOutlined,
+  // TeamOutlined,
 } from "@ant-design/icons-vue";
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
-const color = ['blue'];
+
 export default defineComponent({
   components: {
     PieChartOutlined,
-    DesktopOutlined,
+    // DesktopOutlined,
     UserOutlined,
-    TeamOutlined,
-    FileOutlined,
+    // TeamOutlined,
+    // FileOutlined,
   },
 
   setup() {
     const router = useRouter();
     const goToLogin = () => {
       router.push('/login');
-    }
+    };
+    const color = 'blue';
     return {
       color,
       goToLogin,
@@ -125,11 +93,17 @@ export default defineComponent({
   },
 
   data() {
+    const menuList = [];
     return {
+      menuList,
       collapsed: ref(false),
       selectedKeys: ref(["1"]),
     };
 
+  },
+
+  created() {
+    this.getMenulist();
   },
 
   methods: {
@@ -138,8 +112,19 @@ export default defineComponent({
       this.collapsed = !this.collapsed;
       let logoName = document.getElementById("logoName");
       logoName.style.display =  logoName.style.display == "none" ? "":"none";
-    }
+    },
 
+    async getMenulist () {
+      let {data} = await this.$axios.get('/');
+      this.menuList = data;
+      console.log(this.menuList);
+    },
+
+    selectItem(item) {
+      this.selectedKeys = [];
+      this.selectedKeys.push(item.key);
+      this.$router.push(item.key);
+    }
   }
 });
 </script>
@@ -180,6 +165,10 @@ export default defineComponent({
   }
 }
 
+.page_header {
+  background-color: #fff;
+  margin: 10px auto 20px;
+}
 .site-layout .site-layout-background {
   background: #fff;
 }
