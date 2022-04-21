@@ -23,6 +23,9 @@ const routes = [
   { path: '/', redirect: '/index' },
   {
     path: '/index', component: Index,
+    children: [
+      { path:'/recommend', component: Recommend, },
+    ]
   },
   {
     path:'/login', component: Login,
@@ -32,9 +35,6 @@ const routes = [
   },
   {
     path:'/user', component: User,
-  },
-  {
-    path:'/recommend', component: Recommend,
   },
 
 ]

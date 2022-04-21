@@ -40,19 +40,7 @@
       </a-tooltip>
       </a-layout-header>
       <a-layout-content style="margin: 0 16px">
-
-        <a-page-header
-          class="page_header"
-          style="border: 1px solid rgb(235, 237, 240)"
-          title="今日热榜"
-          sub-title="看看今天有什么火爆的前端资源吧！"
-        />
-
-        <div
-          :style="{ padding: '24px', background: '#fff', minHeight: '360px' }"
-        >
-          
-        </div>
+        <router-view></router-view>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
         Ant Design ©2018 Created by Ant UED
