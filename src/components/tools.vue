@@ -2,8 +2,8 @@
   <a-page-header
     class="page_header"
     style="border: 1px solid rgb(235, 237, 240)"
-    title="今日热榜"
-    sub-title="看看今天有什么火爆的前端资源吧！"
+    title="工具库"
+    sub-title="前端开发过程中有很多好用的工具库，合理利用可以提高开发效率呦!"
   />
   <a-layout-content class="content_card">
     <a-row :gutter="16">

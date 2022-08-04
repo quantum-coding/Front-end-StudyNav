@@ -2,8 +2,8 @@
   <a-page-header
     class="page_header"
     style="border: 1px solid rgb(235, 237, 240)"
-    title="今日热榜"
-    sub-title="看看今天有什么火爆的前端资源吧！"
+    title="html+css"
+    sub-title="html是前端页面的骨架，css是前端页面的化妆盒"
   />
   <a-layout-content class="content_card">
     <a-row :gutter="16">

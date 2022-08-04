@@ -2,18 +2,18 @@
   <a-layout style="min-height: 100vh">
     <a-layout-header :style="{ background: '#fff', padding: 0 }" class="header">
       <div class="logo">
-        <img
-          src="../../assets/网站logo.png"
-          alt=""
-        >
+        <img src="../../assets/网站logo.png" alt="" />
         <h1 id="logoName">前端导航</h1>
       </div>
-        <a-avatar :size="{ xs: 24, sm: 32, md: 40, lg: 42, xl: 45, xxl: 70 }" 
-        class="userAvatar" @click="goToLogin">
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
+      <a-avatar
+        :size="{ xs: 24, sm: 32, md: 40, lg: 42, xl: 45, xxl: 70 }"
+        class="userAvatar"
+        @click="goToLogin"
+      >
+        <template #icon>
+          <UserOutlined />
+        </template>
+      </a-avatar>
     </a-layout-header>
     <a-layout>
       <a-layout-sider
@@ -24,7 +24,7 @@
         theme="light"
       >
         <a-menu v-model:selectedKeys="selectedKeys" theme="light" mode="inline">
-          <a-menu-item key="1">
+          <a-menu-item key="/user/info">
             <user-outlined />
             <span class="nav-text">个人资料</span>
           </a-menu-item>
@@ -46,20 +46,24 @@
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
-      <a-layout> 
+      <a-layout>
         <a-layout-content :style="{ margin: '24px 16px 0' }">
-          <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">content</div>
+          <router-view></router-view>
         </a-layout-content>
         <a-layout-footer style="text-align: center">
           Ant Design ©2018 Created by Ant UED
         </a-layout-footer>
       </a-layout>
-    </a-layout>  
+    </a-layout>
   </a-layout>
 </template>
 <script>
-import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons-vue';
-import { defineComponent, ref } from 'vue';
+import {
+  UserOutlined,
+  VideoCameraOutlined,
+  UploadOutlined,
+} from "@ant-design/icons-vue";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
   components: {
     UserOutlined,
@@ -72,24 +76,22 @@ export default defineComponent({
       console.log(collapsed, type);
     };
 
-    const onBreakpoint = broken => {
+    const onBreakpoint = (broken) => {
       console.log(broken);
     };
 
     return {
-      selectedKeys: ref(['4']),
+      selectedKeys: ref(["4"]),
       onCollapse,
       onBreakpoint,
     };
   },
-
 });
 </script>
 <style lang="less" scoped>
 .header {
-  border-bottom: 2px solid #DEE2E6;
+  border-bottom: 2px solid #dee2e6;
 }
-
 
 .logo {
   height: 32px;
@@ -120,7 +122,7 @@ export default defineComponent({
 
 .header {
   width: 100%;
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
 
@@ -134,8 +136,8 @@ export default defineComponent({
 }
 
 .ant-layout-sider {
-    background: #fff;
-} 
+  background: #fff;
+}
 
 .site-layout-sub-header-background {
   background: #fff;
@@ -145,7 +147,7 @@ export default defineComponent({
   background: #fff;
 }
 
-[data-theme='dark'] .site-layout-sub-header-background {
+[data-theme="dark"] .site-layout-sub-header-background {
   background: #141414;
 }
 </style>

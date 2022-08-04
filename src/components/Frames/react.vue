@@ -2,8 +2,8 @@
   <a-page-header
     class="page_header"
     style="border: 1px solid rgb(235, 237, 240)"
-    title="今日热榜"
-    sub-title="看看今天有什么火爆的前端资源吧！"
+    title="React合辑"
+    sub-title="react是现代最流行的框架之一，生态完整，是很多公司的首选"
   />
   <a-layout-content class="content_card">
     <a-row :gutter="16">

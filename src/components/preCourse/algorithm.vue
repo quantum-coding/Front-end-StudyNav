@@ -2,8 +2,8 @@
   <a-page-header
     class="page_header"
     style="border: 1px solid rgb(235, 237, 240)"
-    title="今日热榜"
-    sub-title="看看今天有什么火爆的前端资源吧！"
+    title="数据结构与算法"
+    sub-title="好的数据结构好的实现算法，页面才能运行地更流畅哦！"
   />
   <a-layout-content class="content_card">
     <a-row :gutter="16">

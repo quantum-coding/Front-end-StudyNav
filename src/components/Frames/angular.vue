@@ -2,8 +2,8 @@
   <a-page-header
     class="page_header"
     style="border: 1px solid rgb(235, 237, 240)"
-    title="今日热榜"
-    sub-title="看看今天有什么火爆的前端资源吧！"
+    title="Angular合辑"
+    sub-title="最早的前端框架，要求比较严格，上手较难"
   />
   <a-layout-content class="content_card">
     <a-row :gutter="16">

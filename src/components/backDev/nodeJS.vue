@@ -2,8 +2,8 @@
   <a-page-header
     class="page_header"
     style="border: 1px solid rgb(235, 237, 240)"
-    title="今日热榜"
-    sub-title="看看今天有什么火爆的前端资源吧！"
+    title="nodeJS"
+    sub-title="基于js开发的底层库，可以用于后台开发易于上手"
   />
   <a-layout-content class="content_card">
     <a-row :gutter="16">
