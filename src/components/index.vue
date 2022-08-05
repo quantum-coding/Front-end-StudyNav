@@ -71,8 +71,9 @@ import {
   UserOutlined,
   // TeamOutlined,
 } from "@ant-design/icons-vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { InitMenuList } from "../util/initMenuList";
 
 export default defineComponent({
   components: {
@@ -85,48 +86,47 @@ export default defineComponent({
 
   setup() {
     const router = useRouter();
+    const menuList = reactive([]);
+    const collapsed = ref(false);
+    const selectedKeys = reactive([]);
     const goToLogin = () => {
       router.push("/login");
     };
     const color = "blue";
-    return {
-      color,
-      goToLogin,
-    };
-  },
-
-  data() {
-    const menuList = [];
-    return {
-      menuList,
-      collapsed: ref(false),
-      selectedKeys: ref(["1"]),
-    };
-  },
-
-  created() {
-    this.getMenulist();
-  },
-
-  methods: {
     // 点击tirgger按钮时触发的侧边栏收起
-    collapseSider() {
-      this.collapsed = !this.collapsed;
+    const collapseSider = () => {
+      collapsed.value = !collapsed.value;
       let logoName = document.getElementById("logoName");
       logoName.style.display = logoName.style.display == "none" ? "" : "none";
-    },
+    };
 
-    async getMenulist() {
-      let { data } = await this.$axios.get("/");
-      this.menuList = data;
-      console.log(this.menuList);
-    },
+    const getMenulist = async () => {
+      let { data } = await InitMenuList();
+      menuList.push(...data);
+      console.log(menuList);
+    };
 
-    selectItem(item) {
-      this.selectedKeys = [];
-      this.selectedKeys.push(item.key);
-      this.$router.push(item.key);
-    },
+    onMounted(() => {
+      getMenulist();
+      // InitMenuList().then((res) => {
+      //   let { data } = res;
+      //   menuList.push(...data);
+      // });
+    });
+
+    const selectItem = (item) => {
+      selectedKeys[0] = [];
+      selectedKeys.push(item.key);
+      router.push(item.key);
+    };
+    return {
+      menuList,
+      color,
+      collapseSider,
+      getMenulist,
+      selectItem,
+      goToLogin,
+    };
   },
 });
 </script>
