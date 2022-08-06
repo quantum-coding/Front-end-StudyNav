@@ -1,10 +1,10 @@
 module.exports = {
   configureWebpack: {
-      resolve: {
-          alias:{
-              '@ant-design/icons/lib/dist$': resolve('./src/util/icon.js')
-          }
+    resolve: {
+      alias: {
+        '@ant-design/icons/lib/dist$': resolve('./src/util/icon.js')
       }
+    }
   },
 
   pluginOptions: {
@@ -14,6 +14,10 @@ module.exports = {
         path.resolve(__dirname, 'src/global.less')
       ]
     }
+  },
+
+  devServer: {
+    proxy: 'http://localhost:3000'
   }
 
 }

@@ -1,7 +1,7 @@
-var express = require("express") 
+var express = require("express")
 var app = express()
 
-var server = app.listen(3000, function() {
+var server = app.listen(3000, function () {
     var host = server.address().address
     var port = server.address().port
 
@@ -29,14 +29,14 @@ app.use((req, res, next) => {
         'Content-Type': 'application/json; charset=utf-8'//默认与允许的文本格式json和编码格式
     })
 
-    req.method === 'OPTIONS' ? res.status(204).end() : next() 
+    req.method === 'OPTIONS' ? res.status(204).end() : next()
 
 })
 
 app.get('/', async function (req, res) {
-    
-    let getMenulist = new Promise( function (resolve, reject) {
-        connection.query("SELECT * FROM menu", function(err, result) {
+
+    let getMenulist = new Promise(function (resolve, reject) {
+        connection.query("SELECT * FROM menu", function (err, result) {
             if (err) {
                 // console.log("查询的数据不存在");
                 reject("查询的数据不存在");
@@ -44,16 +44,16 @@ app.get('/', async function (req, res) {
             var res_menu = [];
             console.log("---------------SELECT----------------");
             result = JSON.parse(JSON.stringify(result));
-    
+
             for (x in result) {
                 if (result[x].pid == 0) {
                     res_menu.push(result[x]);
                 }
             }
-    
+
             for (x in res_menu) {
                 res_menu[x].children = new Array();
-                for (var i = 0; i < result.length; i++){
+                for (var i = 0; i < result.length; i++) {
                     if (res_menu[x].menu_id == result[i].pid) {
                         const item = JSON.parse(JSON.stringify(result[i]));
                         res_menu[x].children.push(item);
@@ -61,7 +61,7 @@ app.get('/', async function (req, res) {
                     }
                 }
             }
-    
+
             console.log("-------------------------------------\n\n");
             resolve(res_menu);
         });
@@ -72,9 +72,9 @@ app.get('/', async function (req, res) {
 
     res.send(menu_Tree);
 
-    
-    
- })
+
+
+})
 
 
 

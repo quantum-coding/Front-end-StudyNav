@@ -116,12 +116,14 @@ export default defineComponent({
 
     const selectItem = (item) => {
       selectedKeys[0] = [];
-      selectedKeys.push(item.key);
+      selectedKeys[0] = item.key;
       router.push(item.key);
     };
     return {
       menuList,
       color,
+      collapsed,
+      selectedKeys,
       collapseSider,
       getMenulist,
       selectItem,
