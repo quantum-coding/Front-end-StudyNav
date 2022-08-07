@@ -30,49 +30,60 @@
         </a-form-item>
 
         <a-form-item class="loginBtn">
-          <a-button type="primary" html-type="submit" style="margin-right: 100px;">登录</a-button>
-          <a-button type="primary" html-type="submit">注册</a-button>
+          <a-button
+            type="primary"
+            html-type="submit"
+            style="margin-right: 100px"
+            >登录</a-button
+          >
+          <a-button @click="goToRegister">注册</a-button>
         </a-form-item>
-      </a-form> 
+      </a-form>
     </a-layout-content>
->
-    
+    >
+
     <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
+      Ant Design ©2018 Created by Ant UED
     </a-layout-footer>
   </a-layout>
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive } from "vue";
+import { useRouter } from "vue-router";
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const formState = reactive({
-      username: '',
-      password: '',
+      username: "",
+      password: "",
       remember: true,
     });
 
-    const onFinish = values => {
-      console.log('Success:', values);
+    // 注册路由跳转
+    const goToRegister = () => {
+      router.push("/register");
     };
 
-    const onFinishFailed = errorInfo => {
-      console.log('Failed:', errorInfo);
+    const onFinish = (values) => {
+      console.log("Success:", values);
+    };
+
+    const onFinishFailed = (errorInfo) => {
+      console.log("Failed:", errorInfo);
     };
 
     return {
       formState,
+      goToRegister,
       onFinish,
       onFinishFailed,
     };
   },
-
 });
 </script>
 
 <style lang="less" scoped>
-
 .loginBox {
   position: absolute;
   height: 300px;
@@ -90,7 +101,6 @@ export default defineComponent({
   left: 50%;
   top: 25%;
   transform: translate(-50%, 0);
-
 }
 
 .psdInput {
@@ -99,7 +109,6 @@ export default defineComponent({
   left: 50%;
   top: 43%;
   transform: translate(-50%, 0);
-
 }
 
 .loginBtn {
