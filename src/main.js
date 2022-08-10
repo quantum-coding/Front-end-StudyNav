@@ -20,7 +20,7 @@ import Info from './components/userCenter/info.vue'
 import Like from './components/userCenter/like.vue'
 import Share from './components/userCenter/share.vue'
 import AddResource from './components/userCenter/addResource.vue'
-import Message from './components/userCenter/message.vue'
+import Messages from './components/userCenter/message.vue'
 import Write from "./components/userCenter/write.vue"
 import Tools from "./components/tools.vue"
 import Review from "./components/review.vue"
@@ -29,7 +29,7 @@ import ReSource from "./components/reSource.vue"
 import {
   Layout, Button, Menu, Breadcrumb, Avatar, Tooltip, Form, Input,
   PageHeader, Card, Row, Col, Image, Tag, Modal, Upload, Select,
-  List, Pagination, Empty, Typography, Divider, Comment
+  List, Pagination, Empty, Typography, Divider, Comment,
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
@@ -70,7 +70,7 @@ const routes = [
       { path: '/user/like', component: Like },
       { path: '/user/share', component: Share },
       { path: '/user/addResource', component: AddResource },
-      { path: '/user/message', component: Message },
+      { path: '/user/message', component: Messages },
       { path: '/user/write', component: Write }
     ]
   },

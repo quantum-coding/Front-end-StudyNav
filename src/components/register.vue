@@ -37,9 +37,13 @@
 
 <script>
 import { defineComponent, reactive } from "vue";
+import { register } from "../util/register";
+import { useRouter } from "vue-router";
+import { message } from "ant-design-vue";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const formState = reactive({
       username: "",
       password: "",
@@ -81,8 +85,18 @@ export default defineComponent({
       ],
     };
 
-    const onFinish = (values) => {
-      console.log("Success:", values);
+    const onFinish = async (values) => {
+      let user = {};
+      user.username = values.username;
+      user.password = values.password;
+      user.registerTime = new Date().toJSON().slice(1, 10);
+      let res = await register(user);
+
+      console.log(res);
+      if (res.status == 200) {
+        router.push("/user");
+        message.success("注册成功！快来学习叭！");
+      }
     };
 
     const onFinishFailed = (errorInfo) => {
