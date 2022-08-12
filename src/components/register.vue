@@ -87,6 +87,7 @@ export default defineComponent({
 
     const onFinish = async (values) => {
       let user = {};
+      // 获取用户提交的用户名、密码和注册时间
       user.username = values.username;
       user.password = values.password;
       user.registerTime = new Date().toJSON().slice(1, 10);

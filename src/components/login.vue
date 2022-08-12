@@ -10,22 +10,13 @@
         @finish="onFinish"
         @finishFailed="onFinishFailed"
         class="loginBox"
+        :rules="rules"
       >
-        <a-form-item
-          label="Username"
-          name="username"
-          :rules="[{ required: true, message: 'Please input your username!' }]"
-          class="userNameInput"
-        >
+        <a-form-item label="Username" name="username" class="userNameInput">
           <a-input v-model:value="formState.username" />
         </a-form-item>
 
-        <a-form-item
-          label="Password"
-          name="password"
-          :rules="[{ required: true, message: 'Please input your password!' }]"
-          class="psdInput"
-        >
+        <a-form-item label="Password" name="password" class="psdInput">
           <a-input-password v-model:value="formState.password" />
         </a-form-item>
 
@@ -51,13 +42,14 @@
 <script>
 import { defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { login } from "../util/login";
+import { message } from "ant-design-vue";
 export default defineComponent({
   setup() {
     const router = useRouter();
     const formState = reactive({
       username: "",
       password: "",
-      remember: true,
     });
 
     // 注册路由跳转
@@ -65,8 +57,37 @@ export default defineComponent({
       router.push("/register");
     };
 
-    const onFinish = (values) => {
-      console.log("Success:", values);
+    const rules = {
+      username: [
+        {
+          required: true,
+          message: "用户名不能为空！",
+        },
+      ],
+      password: [
+        {
+          required: true,
+          message: "密码不能为空！",
+        },
+        {
+          min: 6,
+          message: "密码不能小于6位！",
+        },
+        {
+          max: 12,
+          message: "密码不能大于12位！",
+        },
+      ],
+    };
+
+    const onFinish = async (values) => {
+      let { data } = await login(values);
+      if (data.success) {
+        message.success(data.msg);
+        router.push("/user");
+      } else {
+        message.error(data.msg);
+      }
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -75,6 +96,7 @@ export default defineComponent({
 
     return {
       formState,
+      rules,
       goToRegister,
       onFinish,
       onFinishFailed,

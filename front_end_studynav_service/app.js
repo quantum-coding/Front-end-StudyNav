@@ -1,6 +1,7 @@
 var express = require("express")
 const connection = require("./connect")
 const getMenuList = require("./route/index")
+const login = require("./route/login")
 const register = require("./route/register")
 var app = express()
 
@@ -29,6 +30,9 @@ app.use((req, res, next) => {
 
 // 获取菜单项
 app.get('/menu', getMenuList)
+
+//验证登录信息
+app.post('/login', login)
 
 // 提交注册信息
 app.post('/register', register)
