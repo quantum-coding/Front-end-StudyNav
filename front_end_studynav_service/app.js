@@ -3,6 +3,7 @@ const connection = require("./connect")
 const getMenuList = require("./route/index")
 const login = require("./route/login")
 const register = require("./route/register")
+const validateName = require("./route/validateName")
 var app = express()
 
 var server = app.listen(3000, function () {
@@ -37,5 +38,6 @@ app.post('/login', login)
 // 提交注册信息
 app.post('/register', register)
 
-
+// 验证用户名是否合法
+app.post('/validateName', validateName)
 

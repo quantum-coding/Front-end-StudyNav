@@ -38,6 +38,7 @@
 <script>
 import { defineComponent, reactive } from "vue";
 import { register } from "../util/register";
+import { validateName } from "../util/validateName";
 import { useRouter } from "vue-router";
 import { message } from "ant-design-vue";
 
@@ -49,6 +50,17 @@ export default defineComponent({
       password: "",
       checkPass: "",
     });
+
+    let validateUserName = async (_rule, value) => {
+      console.log("value:", value);
+      let { data } = await validateName({ name: value });
+      console.log(data);
+      if (data.isExist) {
+        return Promise.reject("用户名已存在，请重新输入！");
+      } else {
+        return Promise.resolve();
+      }
+    };
 
     let validatePass2 = async (_rule, value) => {
       if (value === "") {
@@ -65,6 +77,10 @@ export default defineComponent({
         {
           required: true,
           message: "用户名不能为空！",
+        },
+        {
+          validator: validateUserName,
+          trigger: "onblur",
         },
       ],
       password: [
