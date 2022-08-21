@@ -26,10 +26,12 @@ import Tools from "./components/tools.vue"
 import Review from "./components/review.vue"
 import ReSource from "./components/reSource.vue"
 
+import store from "./store/index"
+
 import {
   Layout, Button, Menu, Breadcrumb, Avatar, Tooltip, Form, Input,
   PageHeader, Card, Row, Col, Image, Tag, Modal, Upload, Select,
-  List, Pagination, Empty, Typography, Divider, Comment,
+  List, Pagination, Empty, Typography, Divider, Comment, Dropdown
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
@@ -109,4 +111,6 @@ app.
   use(Typography).
   use(Divider).
   use(Comment).
+  use(Dropdown).
+  use(store).
   mount('#app')

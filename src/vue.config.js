@@ -4,7 +4,8 @@ module.exports = {
       alias: {
         '@ant-design/icons/lib/dist$': resolve('./src/util/icon.js')
       }
-    }
+    },
+    devtool: 'cheap-module-eval-source-map'
   },
 
   pluginOptions: {

@@ -42,11 +42,13 @@
 <script>
 import { defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { login } from "../util/login";
 import { message } from "ant-design-vue";
 export default defineComponent({
   setup() {
     const router = useRouter();
+    const store = useStore();
     const formState = reactive({
       username: "",
       password: "",
@@ -84,6 +86,8 @@ export default defineComponent({
       let { data } = await login(values);
       if (data.success) {
         message.success(data.msg);
+        store.state.user.user_id = data.userId;
+        sessionStorage.setItem("userId", data.userId);
         router.push("/user");
       } else {
         message.error(data.msg);

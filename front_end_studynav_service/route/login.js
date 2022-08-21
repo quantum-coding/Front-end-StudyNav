@@ -16,9 +16,11 @@ const login = (req, res) => {
                 });
                 return;
             }
+
             res.json({
                 success: true,
-                msg: "登录成功！"
+                msg: "登录成功！",
+                userId: JSON.parse(JSON.stringify(...result)).user_id
             });
         }
     })

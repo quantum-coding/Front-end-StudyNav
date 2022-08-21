@@ -5,15 +5,35 @@
         <img src="../../assets/网站logo.png" alt="" />
         <h1 id="logoName">前端导航</h1>
       </div>
-      <a-avatar
-        :size="{ xs: 24, sm: 32, md: 40, lg: 42, xl: 45, xxl: 70 }"
-        class="userAvatar"
-        @click="goToLogin"
-      >
-        <template #icon>
-          <UserOutlined />
+      <a-dropdown>
+        <a-avatar
+          :size="{ xs: 24, sm: 32, md: 40, lg: 42, xl: 45, xxl: 70 }"
+          class="userAvatar"
+        >
+          <template #icon>
+            <UserOutlined />
+          </template>
+        </a-avatar>
+        <template #overlay>
+          <a-menu class="dropMenu_style">
+            <a-menu-item>
+              <user-outlined />
+              <a href="javascript:;">个人中心</a>
+            </a-menu-item>
+            <a-menu-item>
+              <bell-outlined />
+              <a href="javascript:;">消息通知</a>
+            </a-menu-item>
+            <a-divider style="height: 1px; margin: 0" />
+            <a-menu-item>
+              <logout-outlined style="color: rgba(255, 51, 0, 0.85)" />
+              <a href="javascript:;" style="color: rgba(255, 51, 0, 0.85)"
+                >退出登录</a
+              >
+            </a-menu-item>
+          </a-menu>
         </template>
-      </a-avatar>
+      </a-dropdown>
     </a-layout-header>
     <a-layout>
       <a-layout-sider
@@ -23,24 +43,29 @@
         @breakpoint="onBreakpoint"
         theme="light"
       >
-        <a-menu v-model:selectedKeys="selectedKeys" theme="light" mode="inline">
-          <a-menu-item key="/user/info">
+        <a-menu
+          v-model:selectedKeys="selectedKeys"
+          theme="light"
+          mode="inline"
+          @click="selectItem"
+        >
+          <a-menu-item key="/user/info" class="menu_item">
             <user-outlined />
             <span class="nav-text">个人资料</span>
           </a-menu-item>
-          <a-menu-item key="2">
+          <a-menu-item key="/user/like">
             <video-camera-outlined />
             <span class="nav-text">我的收藏</span>
           </a-menu-item>
-          <a-menu-item key="3">
+          <a-menu-item key="/user/share">
             <upload-outlined />
             <span class="nav-text">推荐资源</span>
           </a-menu-item>
-          <a-menu-item key="4">
+          <a-menu-item key="/user/message">
             <user-outlined />
             <span class="nav-text">消息通知</span>
           </a-menu-item>
-          <a-menu-item key="5">
+          <a-menu-item key="/user/write">
             <user-outlined />
             <span class="nav-text">写面经</span>
           </a-menu-item>
@@ -62,16 +87,24 @@ import {
   UserOutlined,
   VideoCameraOutlined,
   UploadOutlined,
+  BellOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons-vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, reactive } from "vue";
+import { useRouter } from "vue-router";
 export default defineComponent({
   components: {
     UserOutlined,
     VideoCameraOutlined,
     UploadOutlined,
+    BellOutlined,
+    LogoutOutlined,
   },
 
   setup() {
+    const router = useRouter();
+    const selectedKeys = reactive([]);
+
     const onCollapse = (collapsed, type) => {
       console.log(collapsed, type);
     };
@@ -80,8 +113,16 @@ export default defineComponent({
       console.log(broken);
     };
 
+    const selectItem = (item) => {
+      selectedKeys[0] = [];
+      selectedKeys[0] = item.key;
+      console.log(item.key);
+      router.push(item.key);
+    };
+
     return {
-      selectedKeys: ref(["4"]),
+      selectedKeys,
+      selectItem,
       onCollapse,
       onBreakpoint,
     };
@@ -132,6 +173,12 @@ export default defineComponent({
 
   .userAvatar:hover {
     cursor: pointer;
+  }
+}
+
+.dropMenu_style {
+  a {
+    color: rgba(0, 0, 0, 0.85);
   }
 }
 
