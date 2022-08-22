@@ -57,7 +57,13 @@
         <a-form-item
           :name="['user', 'username']"
           label="用户名"
-          :rules="[{ required: true, message: '用户名不能为空' }]"
+          :rules="[
+            { required: true, message: '用户名不能为空' },
+            {
+              validator: validateUserName,
+              trigger: 'onblur',
+            },
+          ]"
         >
           <a-input v-model:value="modalFormState.user.username" />
         </a-form-item>
@@ -105,6 +111,7 @@
 import { ref, defineComponent, reactive, onMounted } from "vue";
 import { EditTwoTone, PlusOutlined } from "@ant-design/icons-vue";
 import { useStore } from "vuex";
+import { validateUserName } from "../../hooks/validateUserName";
 // import { useState } from "../../hooks/useMapState";
 import { getInfo, updateInfo } from "../../util/Info";
 import { uploadAvatar } from "../../util/uploadAvatar";
@@ -279,6 +286,7 @@ export default defineComponent({
       formRef,
       visible,
       confirmLoading,
+      validateUserName,
       uploadImage,
       showModal,
       handleOk,
