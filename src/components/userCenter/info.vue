@@ -200,14 +200,16 @@ export default defineComponent({
         file.thumbUrl = e.target.result;
         fileList.value[0] = file;
       };
+      console.log("上传前");
     };
 
     const uploadImage = (file) => {
       // console.log(file);
       formData.delete("file");
       formData.append("file", file.file);
+      console.log("file", file);
       // formData对象需要利用get方法访问添加的对象，直接输出对象是无法访问的
-      console.log(formData.get("file"));
+      // console.log(formData.get("file"));
     };
 
     const handleOk = () => {
@@ -217,9 +219,11 @@ export default defineComponent({
         if (fileList.value.length == 0) {
           modalFormState.user.avatar = "";
         } else {
-          // 上传头像,获取头像的imageUrl
-          let { data } = await uploadAvatar(formData);
-          modalFormState.user.avatar = data.data.imageUrl;
+          // 上传头像,获取头像的imageUrl,如果formData当中，没有提交头像就无需更新文件地址
+          if (formData.get("file")) {
+            let { data } = await uploadAvatar(formData);
+            modalFormState.user.avatar = data.data.imageUrl;
+          }
         }
 
         let { data } = await updateInfo(modalFormState);
@@ -229,16 +233,6 @@ export default defineComponent({
           confirmLoading.value = false;
           visible.value = false;
         }
-
-        // let user = {
-        //   username: formState.user.username,
-        //   email: formState.user.email,
-        //   hobbies: formState.user.hobbies,
-        //   avater: "",
-        //   introduction: formState.user.introduction,
-        //   area: formState.user.area,
-        // };
-        // console.log(user);
       });
     };
 

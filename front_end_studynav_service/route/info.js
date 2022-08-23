@@ -27,8 +27,8 @@ const updateInfo = async (req, res) => {
             return;
         } else {
             let { user_avatar } = JSON.parse(JSON.stringify(...result))
-            if (user_avatar) {
-                // 如果用户头像图片存在就删除
+            if (user_avatar && user_avatar != req.body.user.avatar) {
+                // 如果用户头像图片存在且用户的头像地址也和原来的不同，就删除图片
                 let serverPath = "http://127.0.0.1:3000/"
                 // 获得文件名后缀
                 let path = user_avatar.substring(serverPath.length)
@@ -41,6 +41,7 @@ const updateInfo = async (req, res) => {
                     return
                 })
             }
+            return
         }
     })
 
