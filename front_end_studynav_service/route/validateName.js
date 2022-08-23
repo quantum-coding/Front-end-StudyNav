@@ -27,6 +27,11 @@ const validateName = (req, res) => {
                             isExist: false,
                             msg: "用户名正确！"
                         });
+                    } else {
+                        res.json({
+                            isExist: true,
+                            msg: "用户名已存在！"
+                        });
                     }
                 } else {
                     res.json({

@@ -43,6 +43,7 @@ const updateInfo = async (req, res) => {
             }
             return
         }
+
     })
 
     let updateSql = "UPDATE userinfo SET " +
