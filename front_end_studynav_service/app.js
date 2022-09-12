@@ -6,6 +6,7 @@ const register = require("./route/register")
 const validateName = require("./route/validateName")
 const { info, updateInfo } = require("./route/info")
 const upload = require("./route/upload")
+const { addResource, initResList, getResDetail, updateRes, deleteRes } = require("./route/resource")
 var app = express()
 
 var server = app.listen(3000, function () {
@@ -18,6 +19,7 @@ var server = app.listen(3000, function () {
 connection.connect();
 app.use(express.json());
 app.use("/user_avatar", express.static("user_avatar"))
+app.use("/res_cover", express.static("res_cover"))
 // 前端访问数据跨域设置
 app.use((req, res, next) => {
     res.set({
@@ -55,4 +57,20 @@ app.patch("/updateInfo", updateInfo)
 //上传用户头像
 app.post("/upload/avatar", upload)
 
+//上传资源封面
+app.post("/upload/rescover", upload)
 
+//上传资源信息
+app.post("/addResource", addResource)
+
+//获取资源列表
+app.get("/resource/initreslist", initResList)
+
+//获取资详情
+app.get("/resource/getResDetail", getResDetail)
+
+// 修改资源信息
+app.patch("/resource/updateRes", updateRes)
+
+// 删除资源资源信息
+app.delete("/resource/deleteRes", deleteRes)

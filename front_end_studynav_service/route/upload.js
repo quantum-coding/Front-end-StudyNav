@@ -5,6 +5,16 @@ const fs = require("fs")
 const upload = (req, res) => {
     const busBoy = busboy({ headers: req.headers })
 
+    const type = req.path.substring(req.path.lastIndexOf("/") + 1)
+
+    let folderName = ""
+    // 判断上传图片的类型
+    if (type == "avatar") {
+        folderName = "user_avatar"
+    } else if (type == "rescover") {
+        folderName = "res_cover"
+    }
+
     let data = {
         filename: "", // 图片名
         encoding: "", // 图片编码
@@ -22,7 +32,7 @@ const upload = (req, res) => {
         data = { ...info, filename: filePath }
         console.log(data)
         // 创建可写流
-        let writeStream = fs.createWriteStream("./user_avatar/" + filePath)
+        let writeStream = fs.createWriteStream("./" + folderName + "/" + filePath)
 
         file.on("data", function (data) {
             writeStream.write(data)
@@ -36,7 +46,7 @@ const upload = (req, res) => {
     })
 
     busBoy.on("finish", function () {
-        data.imageUrl = "http://127.0.0.1:3000/user_avatar/" + data.filename
+        data.imageUrl = "http://127.0.0.1:3000/" + folderName + "/" + data.filename
         res.json({
             code: 200,
             msg: "图片上传成功",
