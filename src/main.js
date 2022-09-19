@@ -24,6 +24,7 @@ import AddSuccess from "./components/userCenter/addSuccess.vue"
 import UpdateSuccess from "./components/userCenter/updateSuccess.vue"
 import Messages from './components/userCenter/message.vue'
 import Write from "./components/userCenter/write.vue"
+import FeedBack from "./components/userCenter/feedback.vue"
 import Tools from "./components/tools.vue"
 import Review from "./components/review.vue"
 import ReSource from "./components/reSource.vue"
@@ -80,7 +81,8 @@ const routes = [
       { path: '/user/addSuccess', component: AddSuccess },
       { path: '/user/updateSuccess/:id', component: UpdateSuccess },
       { path: '/user/message', component: Messages },
-      { path: '/user/write', component: Write }
+      { path: '/user/write', component: Write },
+      { path: '/user/feedback', component: FeedBack }
     ]
   },
 

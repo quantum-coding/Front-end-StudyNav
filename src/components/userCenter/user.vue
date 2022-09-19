@@ -69,6 +69,10 @@
             <user-outlined />
             <span class="nav-text">写面经</span>
           </a-menu-item>
+          <a-menu-item key="/user/feedback">
+            <user-outlined />
+            <span class="nav-text">我要反馈</span>
+          </a-menu-item>
         </a-menu>
       </a-layout-sider>
       <a-layout>
