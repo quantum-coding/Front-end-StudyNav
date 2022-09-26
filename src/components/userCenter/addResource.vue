@@ -138,6 +138,9 @@ import {
 } from "../../util/resource";
 import { getCurrentTime } from "../../util/transFormDate";
 import formUpload from "../public/formUpload.vue";
+import { io } from "socket.io-client";
+
+const socket = io("http://127.0.0.1:3000");
 
 export default defineComponent({
   components: {
@@ -250,6 +253,9 @@ export default defineComponent({
       resInfo.submitTime = getCurrentTime();
       let res = await addResource(resInfo);
       if (res.status == 200) {
+        socket.emit("sendMessage", () => {
+          console.log("要发送消息了");
+        });
         router.push("/user/addSuccess");
       }
     };

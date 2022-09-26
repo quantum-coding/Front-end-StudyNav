@@ -1,5 +1,6 @@
 var express = require("express")
 const connection = require("./connect")
+const { Server } = require("socket.io")
 const getMenuList = require("./route/index")
 const login = require("./route/login")
 const register = require("./route/register")
@@ -14,6 +15,8 @@ var server = app.listen(3000, function () {
     var port = server.address().port
     console.log("应用实例,访问地址为http://%s:%s", host, port)
 })
+
+const io = new Server(server, { cors: true })
 
 // 链接数据库
 connection.connect();
@@ -34,6 +37,15 @@ app.use((req, res, next) => {
 
 })
 
+io.on("connection", (socket) => {
+    socket.on("sendMessage", () => {
+        console.log("有资源需要审核！")
+        socket.broadcast.emit("newMessage", () => {
+            console.log("新的资源审核消息")
+        })
+    })
+
+})
 
 
 // 获取菜单项

@@ -21,8 +21,12 @@
   </a-card>
 </template>
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { Empty } from "ant-design-vue";
+import { io } from "socket.io-client";
+
+const socket = io("http://127.0.0.1:3000");
+
 export default defineComponent({
   setup() {
     const options = ref([
@@ -39,6 +43,12 @@ export default defineComponent({
     const handleChange = (value) => {
       console.log(value); // { key: "lucy", label: "Lucy (101)" }
     };
+
+    socket.on("newMessage", () => {
+      console.log("有新的审核消息！");
+    });
+
+    onMounted(() => {});
 
     return {
       value: ref({

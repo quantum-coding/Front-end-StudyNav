@@ -181,7 +181,7 @@ export default defineComponent({
 
     const showModal = () => {
       visible.value = true;
-      let user = { ...formState.user, id: Number(store.state.user.user_id) };
+      let user = { ...formState.user, id: store.state.user.user_id };
       modalFormState.user = user;
       if (modalFormState.user.avatar) {
         fileList.value[0] = {

@@ -41,6 +41,7 @@ import { register } from "../util/register";
 import { validateUserName } from "../hooks/validateUserName";
 import { useRouter } from "vue-router";
 import { message } from "ant-design-vue";
+import { nanoid } from "nanoid";
 
 export default defineComponent({
   setup() {
@@ -104,6 +105,7 @@ export default defineComponent({
     const onFinish = async (values) => {
       let user = {};
       // 获取用户提交的用户名、密码和注册时间
+      user.userId = nanoid();
       user.username = values.username;
       user.password = values.password;
       user.registerTime = new Date().toJSON().slice(1, 10);
