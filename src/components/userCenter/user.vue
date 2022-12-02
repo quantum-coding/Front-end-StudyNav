@@ -16,11 +16,11 @@
         </a-avatar>
         <template #overlay>
           <a-menu class="dropMenu_style">
-            <a-menu-item>
+            <a-menu-item @click="goTo('/user/info')">
               <user-outlined />
               <a href="javascript:;">个人中心</a>
             </a-menu-item>
-            <a-menu-item>
+            <a-menu-item @click="goTo('/user/message')">
               <bell-outlined />
               <a href="javascript:;">消息通知</a>
             </a-menu-item>
@@ -109,6 +109,10 @@ export default defineComponent({
     const router = useRouter();
     const selectedKeys = reactive([]);
 
+    const goTo = (route) => {
+      router.push(route);
+    };
+
     const onCollapse = (collapsed, type) => {
       console.log(collapsed, type);
     };
@@ -126,6 +130,7 @@ export default defineComponent({
 
     return {
       selectedKeys,
+      goTo,
       selectItem,
       onCollapse,
       onBreakpoint,
